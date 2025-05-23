@@ -34,3 +34,14 @@ def add_game(title, platform, genre, status, hours_played):
     conn.commit()
     conn.close()
     print(f"✅ '{title}' added to backlog.")
+
+
+def get_all_games():
+    conn = create_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM games")
+    rows = cursor.fetchall()
+    conn.close()
+    return rows
+
+
