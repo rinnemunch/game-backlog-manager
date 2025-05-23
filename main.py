@@ -1,4 +1,4 @@
-from db import create_table, add_game, get_all_games, filter_by_status, filter_by_platform, delete_game
+from db import create_table, add_game, get_all_games, filter_by_status, filter_by_platform, delete_game, update_game
 
 
 def main():
@@ -12,6 +12,7 @@ def main():
         print("4. Filter by status")
         print("5. Filter by platform")
         print("6. Delete a game")
+        print("7. Edit a game")
         choice = input("Choose an option: ")
 
         if choice == "1":
@@ -62,6 +63,21 @@ def main():
             try:
                 game_id = int(input("Enter the ID of the game to delete: "))
                 delete_game(game_id)
+            except ValueError:
+                print("❌ Invalid ID.")
+
+        elif choice == "7":
+            try:
+                game_id = int(input("Enter the ID of the game to update: "))
+                title = input("New Title: ")
+                platform = input("New Platform: ")
+                genre = input("New Genre: ")
+                status = input("New Status (Backlog, Playing, Completed): ")
+                try:
+                    hours_played = int(input("New Hours Played: "))
+                except ValueError:
+                    hours_played = 0
+                update_game(game_id, title, platform, genre, status, hours_played)
             except ValueError:
                 print("❌ Invalid ID.")
 

@@ -62,6 +62,7 @@ def filter_by_platform(platform):
     conn.close()
     return rows
 
+
 def delete_game(game_id):
     conn = create_connection()
     cursor = conn.cursor()
@@ -70,3 +71,15 @@ def delete_game(game_id):
     conn.close()
     print(f"🗑️ Game with ID {game_id} deleted.")
 
+
+def update_game(game_id, title, platform, genre, status, hours_played):
+    conn = create_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        UPDATE games
+        SET title = ?, platform = ?, genre = ?, status = ?, hours_played = ?
+        WHERE id = ?
+    """, (title, platform, genre, status, hours_played, game_id))
+    conn.commit()
+    conn.close()
+    print(f"✅ Game with ID {game_id} updated.")
