@@ -1,4 +1,4 @@
-from db import create_table, add_game, get_all_games, filter_by_status, filter_by_platform
+from db import create_table, add_game, get_all_games, filter_by_status, filter_by_platform, delete_game
 
 
 def main():
@@ -11,6 +11,7 @@ def main():
         print("3. Exit")
         print("4. Filter by status")
         print("5. Filter by platform")
+        print("6. Delete a game")
         choice = input("Choose an option: ")
 
         if choice == "1":
@@ -56,6 +57,13 @@ def main():
                 print(f"\n🎮 Games on platform '{platform}':")
                 for game in games:
                     print(f"{game[0]}. {game[1]} [{game[2]}] - {game[3]} | {game[4]} ({game[5]} hrs)")
+
+        elif choice == "6":
+            try:
+                game_id = int(input("Enter the ID of the game to delete: "))
+                delete_game(game_id)
+            except ValueError:
+                print("❌ Invalid ID.")
 
         else:
             print("❌ Invalid choice.")

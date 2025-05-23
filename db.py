@@ -61,3 +61,12 @@ def filter_by_platform(platform):
     rows = cursor.fetchall()
     conn.close()
     return rows
+
+def delete_game(game_id):
+    conn = create_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM games WHERE id = ?", (game_id,))
+    conn.commit()
+    conn.close()
+    print(f"🗑️ Game with ID {game_id} deleted.")
+
