@@ -45,3 +45,19 @@ def get_all_games():
     return rows
 
 
+def filter_by_status(status):
+    conn = create_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM games WHERE status = ?", (status,))
+    rows = cursor.fetchall()
+    conn.close()
+    return rows
+
+
+def filter_by_platform(platform):
+    conn = create_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM games WHERE platform = ?", (platform,))
+    rows = cursor.fetchall()
+    conn.close()
+    return rows
