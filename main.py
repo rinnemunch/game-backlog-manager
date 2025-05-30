@@ -13,6 +13,7 @@ def main():
         print("5. Filter by platform")
         print("6. Delete a game")
         print("7. Edit a game")
+        print("8. View recently added")
         choice = input("Choose an option: ")
 
         if choice == "1":
@@ -80,6 +81,16 @@ def main():
                 update_game(game_id, title, platform, genre, status, hours_played)
             except ValueError:
                 print("❌ Invalid ID.")
+
+        elif choice == "8":
+            games = get_all_games()
+            if not games:
+                print("📭 No games found.")
+            else:
+                print("\n🕒 Recently Added Games:")
+                for game in reversed(games[-3:]):
+                    print(f"{game[0]}. {game[1]} [{game[2]}] - {game[3]} | {game[4]} ({game[5]} hrs)")
+
 
         else:
             print("❌ Invalid choice.")

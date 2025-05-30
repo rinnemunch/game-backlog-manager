@@ -17,7 +17,7 @@ def create_table():
             platform TEXT,
             genre TEXT,
             status TEXT,
-            hours_played INTEGER
+            hours_played INTEGER 
         )
     """)
     conn.commit()
