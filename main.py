@@ -25,7 +25,14 @@ def main():
                 hours_played = int(input("Hours played: "))
             except ValueError:
                 hours_played = 0
-            add_game(title, platform, genre, status, hours_played)
+
+            try:
+                completion = int(input("Completion % (0–100): "))
+            except ValueError:
+                completion = 0
+
+            add_game(title, platform, genre, status, hours_played, completion)
+
 
         elif choice == "2":
             games = get_all_games()
@@ -34,7 +41,12 @@ def main():
             else:
                 print("\n📋 Your Games:")
                 for game in games:
-                    print(f"{game[0]}. {game[1]} [{game[2]}] - {game[3]} | {game[4]} ({game[5]} hrs)")
+                    if len(game) == 7:
+                        print(f"{game[0]}. {game[1]} [{game[2]}] - {game[3]} | {game[4]} ({game[5]} hrs, {game[6]}%)")
+                    else:
+                        print(f"{game[0]}. {game[1]} [{game[2]}] - {game[3]} | {game[4]} ({game[5]} hrs)")
+
+
 
         elif choice == "3":
             print("👋 Exiting...")
@@ -48,7 +60,12 @@ def main():
             else:
                 print(f"\n🎯 Games with status '{status}':")
                 for game in games:
-                    print(f"{game[0]}. {game[1]} [{game[2]}] - {game[3]} | {game[4]} ({game[5]} hrs)")
+                    if len(game) == 7:
+                        print(f"{game[0]}. {game[1]} [{game[2]}] - {game[3]} | {game[4]} ({game[5]} hrs, {game[6]}%)")
+                    else:
+                        print(f"{game[0]}. {game[1]} [{game[2]}] - {game[3]} | {game[4]} ({game[5]} hrs)")
+
+
 
         elif choice == "5":
             platform = input("Enter platform to filter by (e.g., PC, PS5, Switch): ").title()
@@ -58,7 +75,12 @@ def main():
             else:
                 print(f"\n🎮 Games on platform '{platform}':")
                 for game in games:
-                    print(f"{game[0]}. {game[1]} [{game[2]}] - {game[3]} | {game[4]} ({game[5]} hrs)")
+                    if len(game) == 7:
+                        print(f"{game[0]}. {game[1]} [{game[2]}] - {game[3]} | {game[4]} ({game[5]} hrs, {game[6]}%)")
+                    else:
+                        print(f"{game[0]}. {game[1]} [{game[2]}] - {game[3]} | {game[4]} ({game[5]} hrs)")
+
+
 
         elif choice == "6":
             try:
@@ -90,7 +112,6 @@ def main():
                 print("\n🕒 Recently Added Games:")
                 for game in reversed(games[-3:]):
                     print(f"{game[0]}. {game[1]} [{game[2]}] - {game[3]} | {game[4]} ({game[5]} hrs)")
-
 
         else:
             print("❌ Invalid choice.")

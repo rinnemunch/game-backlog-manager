@@ -17,23 +17,21 @@ def create_table():
             platform TEXT,
             genre TEXT,
             status TEXT,
-            hours_played INTEGER 
+            hours_played INTEGER,  
+            completion INTEGER DEFAULT 0
         )
     """)
     conn.commit()
     conn.close()
 
 
-def add_game(title, platform, genre, status, hours_played):
-    conn = create_connection()
-    cursor = conn.cursor()
-    cursor.execute("""
-        INSERT INTO games (title, platform, genre, status, hours_played)
-        VALUES (?, ?, ?, ?, ?)
-    """, (title, platform, genre, status, hours_played))
-    conn.commit()
-    conn.close()
-    print(f"✅ '{title}' added to backlog.")
+def add_game(title, platform, genre, status, hours_played, completion):
+    with sqlite3.connect("games.db") as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO games (title, platform, genre, status, hours_played, completion)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (title, platform, genre, status, hours_played, completion))
 
 
 def get_all_games():
