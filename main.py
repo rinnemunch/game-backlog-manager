@@ -1,4 +1,5 @@
-from db import create_table, add_game, get_all_games, filter_by_status, filter_by_platform, delete_game, update_game
+from db import (create_table, add_game, get_all_games, filter_by_status, filter_by_platform, delete_game, update_game,
+                export_to_csv)
 
 
 def main():
@@ -14,6 +15,7 @@ def main():
         print("6. Delete a game")
         print("7. Edit a game")
         print("8. View recently added")
+        print("9. Export to CSV")
         choice = input("Choose an option: ")
 
         if choice == "1":
@@ -33,7 +35,6 @@ def main():
 
             add_game(title, platform, genre, status, hours_played, completion)
 
-
         elif choice == "2":
             games = get_all_games()
             if not games:
@@ -45,8 +46,6 @@ def main():
                         print(f"{game[0]}. {game[1]} [{game[2]}] - {game[3]} | {game[4]} ({game[5]} hrs, {game[6]}%)")
                     else:
                         print(f"{game[0]}. {game[1]} [{game[2]}] - {game[3]} | {game[4]} ({game[5]} hrs)")
-
-
 
         elif choice == "3":
             print("👋 Exiting...")
@@ -65,8 +64,6 @@ def main():
                     else:
                         print(f"{game[0]}. {game[1]} [{game[2]}] - {game[3]} | {game[4]} ({game[5]} hrs)")
 
-
-
         elif choice == "5":
             platform = input("Enter platform to filter by (e.g., PC, PS5, Switch): ").title()
             games = filter_by_platform(platform)
@@ -79,8 +76,6 @@ def main():
                         print(f"{game[0]}. {game[1]} [{game[2]}] - {game[3]} | {game[4]} ({game[5]} hrs, {game[6]}%)")
                     else:
                         print(f"{game[0]}. {game[1]} [{game[2]}] - {game[3]} | {game[4]} ({game[5]} hrs)")
-
-
 
         elif choice == "6":
             try:
@@ -112,6 +107,9 @@ def main():
                 print("\n🕒 Recently Added Games:")
                 for game in reversed(games[-3:]):
                     print(f"{game[0]}. {game[1]} [{game[2]}] - {game[3]} | {game[4]} ({game[5]} hrs)")
+
+        elif choice == "9":
+            export_to_csv()
 
         else:
             print("❌ Invalid choice.")

@@ -1,4 +1,5 @@
 import sqlite3
+import csv
 
 DB_NAME = "games.db"
 
@@ -81,3 +82,12 @@ def update_game(game_id, title, platform, genre, status, hours_played):
     conn.commit()
     conn.close()
     print(f"✅ Game with ID {game_id} updated.")
+
+
+def export_to_csv(filename="games_export.csv"):
+    games = get_all_games()
+    with open(filename, mode="w", newline="", encoding="utf-8") as file:
+        writer = csv.writer(file)
+        writer.writerow(["ID", "Title", "Platform", "Genre", "Status", "Hours Played", "Completion %"])
+        writer.writerows(games)
+    print(f"📄 Exported to {filename}")
